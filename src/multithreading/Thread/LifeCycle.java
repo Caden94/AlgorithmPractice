@@ -1,6 +1,8 @@
 package multithreading.Thread;
-
-public class SimpleThreads {
+// An interrupt is an indication to a thread that it should stop what it is doing and do something else.
+// It's up to the programmer to decide exactly how a thread responds to an interrupt,
+// but it is very common for the thread to terminate. This is the usage emphasized in this lesson.
+public class LifeCycle {
 	// Display a message, preceded by
 	// the name of the current thread
 	static void threadMessage(String message) {
@@ -31,6 +33,7 @@ public class SimpleThreads {
 		// we interrupt MessageLoop
 		// thread (default one hour).
 		long patience = 1000 * 60 * 60;
+        // long patience = 1000; // todo: cause interrupt
 
 		// If command line argument
 		// present, gives patience
@@ -45,7 +48,7 @@ public class SimpleThreads {
 		}
 
 		threadMessage("Starting MessageLoop thread");
-		long startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis(); // ms
 		Thread t = new Thread(new MessageLoop());
 		t.start();
 
@@ -64,6 +67,8 @@ public class SimpleThreads {
 				// Shouldn't be long now
 				// -- wait indefinitely
 				t.join();
+                // Waits at most {@code millis} milliseconds for this thread to
+                // * die. A timeout of {@code 0} means to wait forever.
 			}
 		}
 		threadMessage("Finally!");
