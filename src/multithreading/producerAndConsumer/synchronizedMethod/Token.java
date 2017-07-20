@@ -1,4 +1,4 @@
-package multithreading.producerAndConsumer;
+package multithreading.producerAndConsumer.synchronizedMethod;
 
 /**
  * Created by lujianyu on 7/19/17.

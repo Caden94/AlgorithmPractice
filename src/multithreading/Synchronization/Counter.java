@@ -1,5 +1,7 @@
 package multithreading.Synchronization;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /*
 For each thread
 1. Retrieve the current value of c.
@@ -15,6 +17,9 @@ Global view
 6. Thread B: Store result in c; c is now -1.
 */
 public class Counter {
+    // atomic variable
+//    private AtomicInteger c = 0;
+//    private volatile int c = 0;
     private int c = 0;
 
     public static void main(String[] args) throws InterruptedException {
@@ -36,9 +41,9 @@ public class Counter {
             });
             t1.start();
             t2.start();
-            // todo: add happens-before relationships
-//            t1.join();
-//            t2.join();
+            t1.join();
+            t2.join();
+            // get the value after t1, t2 finished
             System.out.println(counter.value());
         }
     }

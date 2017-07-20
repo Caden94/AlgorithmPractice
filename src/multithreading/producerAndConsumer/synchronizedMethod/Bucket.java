@@ -1,4 +1,4 @@
-package multithreading.producerAndConsumer;
+package multithreading.producerAndConsumer.synchronizedMethod;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;

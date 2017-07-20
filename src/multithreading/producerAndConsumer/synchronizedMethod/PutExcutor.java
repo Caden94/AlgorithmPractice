@@ -1,6 +1,4 @@
-package multithreading.producerAndConsumer;
-
-import java.util.concurrent.BlockingQueue;
+package multithreading.producerAndConsumer.synchronizedMethod;
 
 /**
  * Created by lujianyu on 7/19/17.
