@@ -9,6 +9,7 @@ public class ThreadPool {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ExecutorService singleThreadPool = Executors.newSingleThreadExecutor();
+		
 		Future<?> future1 = singleThreadPool.submit(new MyRunnable());
 		Future<Integer> future2 = singleThreadPool.submit(new MyCallable());
         System.out.println("Runnable Future: " + future1.get());
