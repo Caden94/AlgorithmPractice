@@ -1,7 +1,5 @@
 package multithreading.Synchronization;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /*
 For each thread
 1. Retrieve the current value of c.
@@ -16,29 +14,18 @@ Global view
 5. Thread A: Store result in c; c is now 1.
 6. Thread B: Store result in c; c is now -1.
 */
-public class Counter {
+public class Counter0 {
     // atomic variable
 //    private AtomicInteger c = 0;
-//    private volatile int c = 0;
     private int c = 0;
 
     public static void main(String[] args) throws InterruptedException {
-        Counter counter = new Counter();
+        Counter0 counter = new Counter0();
 
         for (int i = 0; i < 1000; i++) {
-            Thread t1 = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    counter.increment();
-                }
-            });
+            Thread t1 = new Thread(() -> counter.increment());
 
-            Thread t2 = new Thread(new Runnable() {
-                public void run() {
-                    counter.decrement();
-                }
-            });
+            Thread t2 = new Thread(() -> counter.decrement());
             t1.start();
             t2.start();
             t1.join();
@@ -48,29 +35,29 @@ public class Counter {
         }
     }
 
-    public void increment() {
-        c++;
-    }
-
-    public void decrement() {
-        c--;
-    }
-
-    public int value() {
-        return c;
-    }
-
-    // synchronized methods.
-//    public synchronized void increment() {
+//    public void increment() {
 //        c++;
 //    }
 //
-//    public synchronized void decrement() {
+//    public void decrement() {
 //        c--;
 //    }
 //
-//    public synchronized int value() {
+//    public int value() {
 //        return c;
 //    }
+
+    // synchronized methods.
+    public synchronized void increment() {
+        c++;
+    }
+
+    public synchronized void decrement() {
+        c--;
+    }
+
+    public synchronized int value() {
+        return c;
+    }
 
 }
