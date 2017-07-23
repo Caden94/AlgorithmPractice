@@ -24,22 +24,30 @@ public class Counter1 implements Callable<Integer> {
         return count;
     }
 
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+        int count = 0;
+        long startTime = System.nanoTime();
+        for (int i = 0; i < 10000000; i++) {
+            count++;
+        }
+        long endTime = System.nanoTime();
+        System.out.println(count + " " + (endTime - startTime));
+
+        Counter1 counter = new Counter1(0);
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        startTime = System.nanoTime();
+        Future<?> future = executorService.submit(counter);
+        endTime = System.nanoTime();
+        System.out.println(count + " " + (endTime - startTime));
+        executorService.shutdown();
+
+    }
+
     @Override
     public Integer call() {
-        for (int i = 0; i < 100; i++) {
-            System.out.println(Thread.currentThread().getName() + " value = " + count);
+        for (int i = 0; i < 10000000; i++) {
             count++;
         }
         return count;
-    }
-
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
-        Counter1 counter = new Counter1(5);
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
-        Future<?> future = executorService.submit(counter);
-        if (future.isDone()) {
-            System.out.println(future.get());
-            System.out.println(counter.getCount());
-        }
     }
 }

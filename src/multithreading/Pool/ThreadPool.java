@@ -4,20 +4,11 @@ import java.util.concurrent.*;
 
 public class ThreadPool {
 
-<<<<<<< HEAD
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         // TODO Auto-generated method stub
         ExecutorService executorService = Executors.newCachedThreadPool();
         Future<?> future1 = executorService.submit(new MyRunnable());
         Future<Integer> future2 = executorService.submit(new MyCallable());
-=======
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		ExecutorService singleThreadPool = Executors.newSingleThreadExecutor();
-		
-		Future<?> future1 = singleThreadPool.submit(new MyRunnable());
-		Future<Integer> future2 = singleThreadPool.submit(new MyCallable());
->>>>>>> 379e7fecc1b6636738fa55019a2a91351ce01b86
         System.out.println("Runnable Future: " + future1.get());
         System.out.println("Callable Future: " + future2.get());
         // executorService.execute(new MyRunnable()); // old method
