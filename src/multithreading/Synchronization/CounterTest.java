@@ -12,7 +12,8 @@ public class CounterTest {
 
     public static void main(String[] args) throws InterruptedException {
         CounterTest myCounter = new CounterTest();
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        // ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = Executors.newCachedThreadPool();
         // thread pool will choose one thread to execute the task
         Future<?> future = null;
         for (int i = 0; i < 10; i++) {
