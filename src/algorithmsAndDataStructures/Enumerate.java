@@ -20,6 +20,6 @@ public class Enumerate {
     }
 
     public static void main(String[] args) {
-        System.out.println(Day.TUESDAY.getVal());
+        System.out.println(Day.valueOf("SUNDAY").getVal());
     }
 }
