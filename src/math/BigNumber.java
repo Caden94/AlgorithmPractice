@@ -44,4 +44,33 @@ public class BigNumber {
         }
         return sb.toString();
     }
+
+    public String multiply(String num1, String num2) {
+        // Write your code here
+        char[] n1 = num1.toCharArray(), n2 = num2.toCharArray();
+        int m = n1.length, n = n2.length;
+        int[] res = new int[m + n];
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                res[i + j + 1] += (n1[i] - '0') * (n2[j] - '0');
+            }
+        }
+        int carry = 0;
+        for (int i = res.length - 1; i >= 0; i--) {
+            int temp = res[i] + carry;
+            res[i] = temp % 10;
+            carry = temp / 10;
+        }
+        StringBuilder sb = new StringBuilder();
+        boolean zero = true;
+        for (int i = 0; i < res.length; i++) {
+            if (res[i] == 0 && zero) {
+                continue;
+            } else {
+                zero = false;
+            }
+            sb.append(res[i]);
+        }
+        return sb.length() == 0 ? "0" : sb.toString();
+    }
 }
