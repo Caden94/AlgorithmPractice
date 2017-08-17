@@ -22,23 +22,28 @@ public class UnionFind {
     }
 
     public int find(int i) {
-        //Find with Path Compression
+        //Find without Path Compression
         while(i != id[i]) {
-            id[i] = id[id[i]];
+            // Path Compression -> Amortized O(1) operations
+            // id[i] = id[id[i]];
             i = id[i];
         }
         return i;
     }
+
+    // O(logN)
     public boolean isConnected(int p, int q) {
         return find(p) == find(q);
     }
+
+    // O(logN)
     public boolean union(int p, int q) {
         int i = find(p);
         int j = find(q);
         if(i == j) {
             return false;
         }
-        //Weighted Union
+        //Weighted Union -> make the tree balanced
         if(size[i] < size[j]) {
             id[i] = id[j];
             size[j] += size[i];
