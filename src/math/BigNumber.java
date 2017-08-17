@@ -50,17 +50,28 @@ public class BigNumber {
         char[] n1 = num1.toCharArray(), n2 = num2.toCharArray();
         int m = n1.length, n = n2.length;
         int[] res = new int[m + n];
+        /**
+         * pre-calculation
+         */
         for (int i = m - 1; i >= 0; i--) {
             for (int j = n - 1; j >= 0; j--) {
                 res[i + j + 1] += (n1[i] - '0') * (n2[j] - '0');
             }
         }
+
+        /**
+         * post-calculation
+         */
         int carry = 0;
         for (int i = res.length - 1; i >= 0; i--) {
             int temp = res[i] + carry;
             res[i] = temp % 10;
             carry = temp / 10;
         }
+
+        /**
+         * construct result string
+         */
         StringBuilder sb = new StringBuilder();
         boolean zero = true;
         for (int i = 0; i < res.length; i++) {
