@@ -7,10 +7,11 @@ public class UnionFind {
 
     public UnionFind(int n) {
         this.id = new int[n];
+        this.size = new int[n];
         for (int i = 0; i < n; i++) {
             id[i] = i;
+            size[i] = 1;
         }
-        this.size = new int[n];
         this.counts = n;
     }
 
@@ -48,7 +49,6 @@ public class UnionFind {
         counts--;
         return true;
     }
-
 }
 
 ///*
