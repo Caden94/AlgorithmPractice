@@ -11,8 +11,8 @@ public class SortingAlgorithm {
         // bubbleSort(nums);
         // selectionSort(nums);
         // insertionSort(nums);
-        // mergeSort(nums);
-        quickSort(nums);
+        mergeSort(nums);
+//        quickSort(nums);
         print(nums);
     }
 
@@ -98,26 +98,18 @@ public class SortingAlgorithm {
         int i = 0, j = 0, k = 0;
         while (i < left.length && j < right.length) {
             if (left[i] < right[j]) {
-                nums[start + k] = left[i];
-                i++;
-                k++;
+                nums[start + k++] = left[i++];
             } else {
-                nums[start + k] = right[j];
-                j++;
-                k++;
+                nums[start + k++] = right[j++];
             }
         }
 
         while (i < left.length) {
-            nums[start + k] = left[i];
-            i++;
-            k++;
+            nums[start + k++] = left[i++];
         }
 
         while (j < right.length) {
-            nums[start + k] = right[j];
-            j++;
-            k++;
+            nums[start + k++] = right[j++];
         }
     }
 
