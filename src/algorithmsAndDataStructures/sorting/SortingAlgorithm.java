@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 public class SortingAlgorithm {
 
     public static void main(String[] args) {
-        int[] nums = new int[]{4, 5, 3, 1, 3, 8, 2};
+        int[] nums = new int[]{4, 5, 3, 1, 3, 8};
         print(nums);
         // bubbleSort(nums);
         // selectionSort(nums);
@@ -129,19 +129,16 @@ public class SortingAlgorithm {
 
     private static void quickSort(int[] nums, int start, int end) {
         // TODO Auto-generated method stub
-        if (start >= end) {  return;  }
-        int pivot = nums[start + (end - start) / 2]; // find pivot
+        if (start >= end) { return; }
+        int pivot = nums[end], pos = start;// find pivot
         // partition
-        int i = start, j = end, pos = start;
-        while (i < j) {
-            while (i < j && nums[i] < pivot) {
-                i++;
-                pos++;
+        for (int i = start; i < end; i++) {
+            if (nums[i] <= pivot) {
+                swap(nums, pos++, i);
             }
-            while (i < j && nums[j] > pivot) { j--; }
-            swap(nums, i++, j--);
         }
-        quickSort(nums, start, pos);
+        swap(nums, pos, end);
+        quickSort(nums, start, pos - 1);
         quickSort(nums, pos + 1, end);
     }
 
