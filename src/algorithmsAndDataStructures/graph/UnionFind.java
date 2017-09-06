@@ -1,4 +1,7 @@
 package algorithmsAndDataStructures.graph;
+
+import java.util.PriorityQueue;
+
 // use map to mapping the string to id if the given id is not integer
 public class UnionFind {
     private int[] id;

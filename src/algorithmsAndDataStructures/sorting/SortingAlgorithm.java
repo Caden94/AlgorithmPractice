@@ -1,5 +1,7 @@
 package algorithmsAndDataStructures.sorting;
 
+import java.util.LinkedHashMap;
+
 /**
  * Created by lujianyu on 4/23/17.
  */
@@ -11,8 +13,8 @@ public class SortingAlgorithm {
         // bubbleSort(nums);
         // selectionSort(nums);
         // insertionSort(nums);
-        mergeSort(nums);
-//        quickSort(nums);
+//        mergeSort(nums);
+        quickSort(nums);
         print(nums);
     }
 
@@ -127,27 +129,20 @@ public class SortingAlgorithm {
 
     private static void quickSort(int[] nums, int start, int end) {
         // TODO Auto-generated method stub
-        if (start >= end) {
-            return;
-        }
-        int pivot = nums[start + (end - start) / 2];
+        if (start >= end) {  return;  }
+        int pivot = nums[start + (end - start) / 2]; // find pivot
         // partition
-        int i = start, j = end, k = start;
+        int i = start, j = end, pos = start;
         while (i < j) {
             while (i < j && nums[i] < pivot) {
                 i++;
-                k++;
+                pos++;
             }
-
-            while (i < j && nums[j] > pivot) {
-                j--;
-            }
-            swap(nums, i, j);
-            i++;
-            j--;
+            while (i < j && nums[j] > pivot) { j--; }
+            swap(nums, i++, j--);
         }
-        quickSort(nums, start, k);
-        quickSort(nums, k + 1, end);
+        quickSort(nums, start, pos);
+        quickSort(nums, pos + 1, end);
     }
 
     /**
