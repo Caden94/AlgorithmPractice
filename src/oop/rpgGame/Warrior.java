@@ -1,4 +1,4 @@
-package oop;
+package oop.rpgGame;
 
 /**
  * Created by lujianyu on 7/11/17.
