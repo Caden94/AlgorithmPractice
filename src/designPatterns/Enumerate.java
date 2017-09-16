@@ -1,4 +1,4 @@
-package algorithmsAndDataStructures;
+package designPatterns;
 
 /**
  * Created by lujianyu on 7/27/17.
