@@ -15,7 +15,8 @@ public class SortingAlgorithm {
         // insertionSort(nums);
         //  mergeSort(nums);
         // quickSort(nums);
-        countingSort(nums);
+        // countingSort(nums);
+        bucketSort(nums);
         // bubbleSort(nums);
         // sortByFrequency(nums);
         print(nums);
@@ -146,7 +147,7 @@ public class SortingAlgorithm {
     }
 
     /**
-     * Counting Sort Time: O(n + k), Space: O(max-min)
+     * Counting Sort Time: O(n + k), Space: O(k)
      */
     private static void countingSort(int[] nums) {
         int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
@@ -168,20 +169,22 @@ public class SortingAlgorithm {
     }
 
     /**
-     * Bucket Sort: O(n + k) ~ O(n^2)
+     * Bucket Sort Time:O(n + k) ~ O(n^2), Space: O(k * n)
      */
-    private static void bucketSort(int[] nums, int k) { // k: number of buckets
+    private static void bucketSort(int[] nums) {
         int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
         for (int num : nums) {
             min = Math.min(min, num);
             max = Math.max(max, num);
         }
         // put into bucket
-        List<Integer>[] counts = new List[k];
-        int divide = (max - min) / k;
+        int t = nums.length;
+        int k = (max - min) / (t - 1);
+        List<Integer>[] counts = new List[k]; // k: number of buckets
+
         for (int num : nums) {
-            if (counts[(num - min) / divide] == null) { counts[(num - min) / divide] = new ArrayList<>(); }
-            counts[(num - min) / divide].add(num);
+            if (counts[(num - min) / t] == null) { counts[(num - min) / t] = new ArrayList<>(); }
+            counts[(num - min) / t].add(num);
         }
         // output
         int index = 0;
@@ -189,8 +192,8 @@ public class SortingAlgorithm {
             if (counts[i] == null) { continue; }
             List<Integer> temp = counts[i];
             Collections.sort(temp);
-            for (int t : temp) {
-                nums[index++] = t;
+            for (int num : temp) {
+                nums[index++] = num;
             }
         }
     }
