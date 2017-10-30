@@ -9,6 +9,7 @@ public class SortingAlgorithm {
 
     public static void main(String[] args) {
         int[] nums = new int[]{4, 5, 3, 1, 1, 3, 8, 100};
+        // @Test
         print(nums);
         // bubbleSort(nums);
         // selectionSort(nums);
@@ -16,7 +17,7 @@ public class SortingAlgorithm {
         //  mergeSort(nums);
         // quickSort(nums);
         // countingSort(nums);
-        bucketSort(nums);
+        // bucketSort(nums);
         // bubbleSort(nums);
         // sortByFrequency(nums);
         print(nums);
