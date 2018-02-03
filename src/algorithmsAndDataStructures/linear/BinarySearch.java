@@ -7,6 +7,9 @@ public class BinarySearch {
         System.out.println(bs.higher(nums, 2)); // return 3
         System.out.println(bs.higher(nums, 3)); // return 4
         System.out.println(bs.higher(nums, 5)); // return 5
+
+        nums = new int[]{9,10,100,101,1002,10203};
+        System.out.println(bs.higher(nums, 10203));
     }
 
     // lower bound / the floor is the greatest element smaller than or equal to x.
@@ -42,7 +45,7 @@ public class BinarySearch {
         // 0 1 2 3
         //     i j
         while (start < end) {
-            int mid = start + (end - start) / 2 + 1;
+            int mid = start + (end - start) / 2 + 1; // think when start + 1 == end && nums[start] == target
             if (nums[mid] > target) {
                 end = mid - 1;
             } else {

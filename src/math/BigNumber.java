@@ -11,7 +11,6 @@ public class BigNumber {
         char[] n1 = num1.toCharArray(), n2 = num2.toCharArray();
         int[] res = new int[Math.max(n1.length, n2.length) + 1];
         int i = n1.length - 1, j = n2.length - 1, k = 0;
-
         /**
          * pre-calculation
          */

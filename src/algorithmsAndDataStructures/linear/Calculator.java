@@ -4,107 +4,87 @@ import java.util.*;
 
 public class Calculator {
     public static void main(String[] args) {
-        // @Test
-        System.out.println("Test 1: 2 == " + calculate("1 + 1"));
-        // @Test
-        System.out.println("Test 2: 3 == " + calculate("4 - 1"));
-        // @Test
-        System.out.println("Test 3: 8 == " + calculate("4 * 2"));
-        // @Test
-        System.out.println("Test 4: 2 == " + calculate("4 / 2"));
-        // @Test
-        System.out.println("Test 5: 16 == " + calculate("4 ^ 2"));
-        // @Test
-        System.out.println("Test 6: 7 == " + calculate("(1+(4+2)"));
-        // @Test
-        System.out.println("Test 7: 6 == " + calculate("1 * 2 * 3"));
-        // @Test
-        System.out.println("Test 8: 2 == " + calculate("1 * 6 / 3"));
-        // @Test
-        System.out.println("Test 9: 2 == " + calculate("12 / (3 + 3)"));
-        // @Test
-        System.out.println("Test: 2 == " + calculate("12 / ((11 - 3 * 2) + 1)"));
+        System.out.println("Test 1: 2 = " + calculate("1 + 1"));
+        System.out.println("Test 2: 4 = " + calculate(" 6-4 / 2 "));
+        System.out.println("Test 3: 21 = " + calculate("2*(5+5*2)/3+(6/2+8)"));
+        System.out.println("Test 4: -12 = " + calculate( "(2+6* 3+5- (3*14/7+2)*5)+3"));
 
+        System.out.println("Test 5: -8 = " + calculate("(5) - (6) - (7)"));
     }
-    // 12 / ((11 - 3 * 2) + 1)
-    // nums: 12 5 1
-    // ops: / ( +
     public static int calculate(String s) {
-        char[] input = s.replaceAll("\\s", "").toCharArray();
-        // operation stack
-        Deque<Character> ops = new ArrayDeque<>();
-        // numbers stack
-        Deque<Integer> nums = new ArrayDeque<>();
-        // priority map
-        Map<Character, Integer> map = new HashMap<>();
-        // set sign priority
-        map.put('+', 1); map.put('-', 1); map.put('*', 2); map.put('/',2); map.put('^', 3); map.put('(', -1); map.put(')', 0);
+        char[] expr = s.toCharArray();
+        Map<Character, Integer> map = generateOpPriorityMap();
 
-        // calculate
-        for (int i = 0; i < input.length; i++) {
-            if (Character.isDigit(input[i])) { // num
+        Deque<Integer> nums = new ArrayDeque<>(); // number stack
+        Deque<Character> ops = new ArrayDeque<>(); // operation stack
+
+        for (int i = 0; i < expr.length; i++) {
+            char c = expr[i];
+            if (Character.isDigit(c)) { //  nums
                 int num = 0;
-                while (i < input.length && Character.isDigit(input[i])) {
-                    num = num * 10 + input[i++] - '0';
+                while (i < expr.length && Character.isDigit(expr[i])) {
+                    num = num * 10 + (expr[i++] - '0');
                 }
+                i--;
                 nums.push(num);
-            }
-            if (i >= input.length) { break; } // out of boundary
-            // operations
-            if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/' || input[i] == '^') {
-                if (ops.isEmpty() || map.get(ops.peek()) <= map.get(input[i])) {
-                    ops.push(input[i]);
-                } else {
-                    while (!ops.isEmpty() && map.get(input[i]) < map.get(ops.peek())) {
-                        calculate_help(nums, ops.pop()); // curr_priority < prev_priority2: cal
-                    }
-                    ops.push(input[i]);
+            } else if (c == ' ') {
+                continue;
+            } else if (c == '(') {
+                ops.push(c);
+            } else if (c == ')') {
+                while (ops.peek() != '(') {
+                    cal(nums, ops);
                 }
-            } else if (input[i] == '(') { // '('
-                ops.push(input[i]);
-            } else { // ')'
-                while (!ops.isEmpty() && map.get(input[i]) < map.get(ops.peek())) {
-                    calculate_help(nums, ops.pop());
+                ops.pop(); // remove '('
+            } else { // + - * /
+                while (!ops.isEmpty() && map.get(c) < map.get(ops.peek())) {
+                    cal(nums, ops);
                 }
-                // '('
-                if (!ops.isEmpty() && ops.peek() == '(') { // ')'
-                    ops.pop();
-                }
+                ops.push(c);
             }
         }
+        // final computation
         while (!ops.isEmpty()) {
-            calculate_help(nums, ops.pop());
+            cal(nums, ops);
         }
-
-        // output
-        int res = 0;
-        while (!nums.isEmpty()) {
-            res += nums.pop();
-        }
-        return res;
+        return nums.peek();
     }
 
-    private static void calculate_help(Deque<Integer> nums, char op) {
-        if (op == '(') { return; } // (1 + ( 2 + 3))
-        int right = nums.pop(), left = nums.pop();
-        switch (op) {
-            case '+':
-                nums.push(left + right);
-                break;
-            case '-':
-                nums.push(left - right);
-                break;
-            case '*':
-                nums.push(left * right);
-                break;
-            case '/':
-                nums.push(left / right);
-                break;
-            case '^':
-                nums.push((int)Math.pow(left, right));
-                break;
-            default:
-                break;
+    private static void cal(Deque<Integer> nums, Deque<Character> ops) {
+        if (ops.peek() == '-') {
+            int temp = 0;
+            while (!ops.isEmpty() && ops.peek() == '-') {
+                temp -= nums.pop();
+                ops.pop();
+            }
+            nums.push(nums.pop() + temp);
+        } else {
+            int num2 = nums.pop();
+            int num1 = nums.pop();
+            nums.push(cal(num1, num2, ops.pop()));
         }
+
+    }
+
+    private static int cal(int num1, int num2, char op) {
+        if (op == '+') {
+            return num1 + num2;
+        } else if (op == '-') {
+            return num1 - num2;
+        } else if (op == '*') {
+            return num1 * num2;
+        } else {
+            return num1 / num2; // assume num2 != 0
+        }
+    }
+
+    private static Map<Character, Integer> generateOpPriorityMap() {
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('(', -1);
+        map.put('+', 0);
+        map.put('-', 1);
+        map.put('*', 2);
+        map.put('/', 2);
+        return map;
     }
 }
