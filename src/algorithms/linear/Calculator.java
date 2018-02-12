@@ -4,12 +4,7 @@ import java.util.*;
 
 public class Calculator {
     public static void main(String[] args) {
-        System.out.println("Test 1: 2 = " + calculate("1 + 1"));
-        System.out.println("Test 2: 4 = " + calculate(" 6-4 / 2 "));
-        System.out.println("Test 3: 21 = " + calculate("2*(5+5*2)/3+(6/2+8)"));
-        System.out.println("Test 4: -12 = " + calculate( "(2+6* 3+5- (3*14/7+2)*5)+3"));
-
-        System.out.println("Test 5: -8 = " + calculate("(5) - (6) - (7)"));
+        // set test/CalculatorTest
     }
     public static int calculate(String s) {
         char[] expr = s.toCharArray();
